@@ -15,7 +15,46 @@ starbucks_drinks <- read_csv("data/starbucks_drinkMenu_expanded.csv")
 select(starbucks_drinks,Beverage_category : Calories)
 ```
 
+dim show's you all the dimentions of the data
 ```{r}
-is.na(starbucks_drinks)
+dim(starbucks_drinks)
+```
+
+```{r}
+names(starbucks_drinks)
+```
+
+```{r}
+starbucks_drinks %>% 
+  select(Beverage_category, Beverage, Beverage_prep, Calories) %>% 
+  filter(!is.na(Calories))
+```
+
+
+
+```{r}
+startbucks_drinks %>%
+  mutate(calorie = Calories > 135)
+```
+
+```{r}
+starbucks_drinks %>% 
+  select(Beverage_prep, Calories) %>% 
+  group_by(Beverage_prep) %>% 
+  summarise(mean_cals = mean(Calories))
+```
+
+```{r}
+starbucks_drinks %>% 
+  summarise(mean_cals = mean(Calories))
+
+mean_cals_object
+```
+
+
+```{r}
+av_prep %>% 
+  mutate(diff_cals = mean_cals - mean_cals_object) %>% 
+  filter(diff_cals > 0)
 ```
 
