@@ -1,0 +1,21 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+```
+
+```{r}
+starbucks_drinks <- read_csv("data/starbucks_drinkMenu_expanded.csv")
+```
+
+```{r}
+select(starbucks_drinks,Beverage_category : Calories)
+```
+
+```{r}
+is.na(starbucks_drinks)
+```
+
