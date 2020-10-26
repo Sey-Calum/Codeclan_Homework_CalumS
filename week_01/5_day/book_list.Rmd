@@ -1,0 +1,67 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+```
+
+```{r}
+books_list <- read_csv("data/books.csv")
+```
+
+```{r}
+view(books_list)
+```
+
+```{r}
+head(books_list, 10)
+tail(books_list, 5)
+```
+
+```{r}
+names(books_list)
+```
+
+```{r}
+str(books_list)
+```
+
+
+```{r}
+summary(books_list)
+```
+
+```{r}
+author_J <- filter(books_list, first_letter %>% ("J"))
+
+author_J
+```
+
+```{r}
+mean(books_list, num_pages)
+```
+
+```{r}
+jk_rowling <- c("J.K Rowling")
+```
+
+```{r}
+books_list %>% 
+  switch("language_code" = "publicatio_date")
+```
+
+
+```{r}
+books_list %>% 
+  mean(num_pages)
+```
+
+
+
+
+
+
+
+
