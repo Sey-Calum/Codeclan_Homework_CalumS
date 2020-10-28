@@ -1,0 +1,14 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+```
+
+
+```{r}
+tweets <- read_csv("data/code_clan_tweets.csv")
+```
+
