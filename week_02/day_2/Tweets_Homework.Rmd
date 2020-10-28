@@ -5,10 +5,84 @@ output: html_notebook
 
 ```{r}
 library(tidyverse)
+library(janitor)
+```
+
+```{r}
+tweets <- read.csv("data/code_clan_tweets.csv")
+```
+
+```{r}
+tweets
+```
+1.Load the code_clan_tweets.csv data. Find the number of rows, columns, and list all the variable names.
+Rows = 234
+Columns = 27
+Variable Names = 27
+
+```{r}
+ls(tweets)
+names(tweets)
+str(tweets)
+levels(tweets)
+class(tweets)
+head(tweets, 5)
+tail(tweets, 5)
+```
+
+2.Find the total number of favourited tweets (stored in favorite_count) that CodeClan tweets have got. Don’t add a tweet’s favorite_count to the total when the tweet was quoted (see the is_quote variable).
+
+```{r}
+tweets %>%
+  
+  filter(is_quote == FALSE) %>%
+  summarise(total = sum(favorite_count))
+
+```
+
+3.Summarise the mean number of retweets (retweet_count), split by the type of platform that was used to tweet (source). Again, omit quoted tweets from the mean.
+
+```{r}
+tweets %>%
+  filter(is_quote == FALSE) %>%
+  group_by(source) %>%
+  summarise(mean == retweet_count) # wrong ???
 ```
 
 
+4. Count the total number of likes (i.e. total of favorite_count), split by media type, and arrange them from most likes to least. Assume that any tweets without a listed media type are of type “text”.
 ```{r}
-tweets <- read_csv("data/code_clan_tweets.csv")
+strings <- 
+  
+tweets %>% 
+  
+  mutate(text = str_remove(text, "[[:punct:]]")) %>% 
+  mutate(text = encodeString(text)) %>% 
+  mutate(tweet_length = nchar(text)) %>% 
+
+```
+
+5.Find the mean number of characters that a CodeClan tweet contains.
+```{r}
+tweets %>%
+  summarise(avg_tweet_length = mean(display_text_width))
+```
+
+6.The code_clan_info.csv data file contains status_url along with other info. Load this in, and join it to the code_clan_tweets tibble, so that you have a status_url for each tweet. Decide which variable to join the tibbles on.
+
+```{r}
+
+```
+
+7.From your new joined data, create a new tibble codeclan_hashtags containing only the tweet_id and hashtags in lowercase for analysis. Keep only those tweets with hashtags.
+
+```{r}
+
+```
+
+8.Some tweets have more than one hashtag, denoted by the c( symbols at the start of the string. Use the str_sub() and str_detect() functions and your codeclan_hashtags tibble from above to find all the cases in which the hashtag string begins with charactersc(
+```{r}
+hashtags_multiple <- codeclan_hashtags %>% 
+  mutate(first_letters = str_sub ????
 ```
 

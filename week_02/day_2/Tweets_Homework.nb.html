@@ -1760,24 +1760,111 @@ summary {
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeSh0aWR5dmVyc2UpXG5gYGAifQ== -->
-<pre class="r"><code>library(tidyverse)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeSh0aWR5dmVyc2UpXG5saWJyYXJ5KGphbml0b3IpXG5gYGAifQ== -->
+<pre class="r"><code>library(tidyverse)
+library(janitor)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudHdlZXRzIDwtIHJlYWRfY3N2KFwiZGF0YS9jb2RlX2NsYW5fdHdlZXRzLmNzdlwiKVxuYGBgIn0= -->
-<pre class="r"><code>tweets &lt;- read_csv(&quot;data/code_clan_tweets.csv&quot;)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudHdlZXRzIDwtIHJlYWQuY3N2KFwiZGF0YS9jb2RlX2NsYW5fdHdlZXRzLmNzdlwiKVxuYGBgIn0= -->
+<pre class="r"><code>tweets &lt;- read.csv(&quot;data/code_clan_tweets.csv&quot;)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiRXJyb3I6ICdkYXRhL2NvZGVfY2xhbl90d2VldHMuY3N2JyBkb2VzIG5vdCBleGlzdCBpbiBjdXJyZW50IHdvcmtpbmcgZGlyZWN0b3J5ICgnL1VzZXJzL0NhbHVtL0NvZGVDbGFuL0hvbWV3b3JrX0NvZGVDbGFuX0NhbHVtUy93ZWVrXzAyL2RheV8yJykuXG4ifQ== -->
-<pre><code>Error: &#39;data/code_clan_tweets.csv&#39; does not exist in current working directory (&#39;/Users/Calum/CodeClan/Homework_CodeClan_CalumS/week_02/day_2&#39;).</code></pre>
-<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudHdlZXRzXG5gYGAifQ== -->
+<pre class="r"><code>tweets</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>1.Load the code_clan_tweets.csv data. Find the number of rows, columns, and list all the variable names. Rows = 234 Columns = 27 Variable Names = 27</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubHModHdlZXRzKVxubmFtZXModHdlZXRzKVxuc3RyKHR3ZWV0cylcbmxldmVscyh0d2VldHMpXG5jbGFzcyh0d2VldHMpXG5oZWFkKHR3ZWV0cywgNSlcbnRhaWwodHdlZXRzLCA1KVxuYGBgIn0= -->
+<pre class="r"><code>ls(tweets)
+names(tweets)
+str(tweets)
+levels(tweets)
+class(tweets)
+head(tweets, 5)
+tail(tweets, 5)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>2.Find the total number of favourited tweets (stored in favorite_count) that CodeClan tweets have got. Don’t add a tweet’s favorite_count to the total when the tweet was quoted (see the is_quote variable).</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudHdlZXRzICU+JVxuICBcbiAgZmlsdGVyKGlzX3F1b3RlID09IEZBTFNFKSAlPiVcbiAgc3VtbWFyaXNlKHRvdGFsID0gc3VtKGZhdm9yaXRlX2NvdW50KSlcblxuYGBgIn0= -->
+<pre class="r"><code>tweets %&gt;%
+  
+  filter(is_quote == FALSE) %&gt;%
+  summarise(total = sum(favorite_count))
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>3.Summarise the mean number of retweets (retweet_count), split by the type of platform that was used to tweet (source). Again, omit quoted tweets from the mean.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudHdlZXRzICU+JVxuICBmaWx0ZXIoaXNfcXVvdGUgPT0gRkFMU0UpICU+JVxuICBncm91cF9ieShzb3VyY2UpICU+JVxuICBzdW1tYXJpc2UobWVhbiA9PSByZXR3ZWV0X2NvdW50KSAjIHdyb25nID8/P1xuYGBgIn0= -->
+<pre class="r"><code>tweets %&gt;%
+  filter(is_quote == FALSE) %&gt;%
+  group_by(source) %&gt;%
+  summarise(mean == retweet_count) # wrong ???</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<ol start="4" style="list-style-type: decimal">
+<li>Count the total number of likes (i.e. total of favorite_count), split by media type, and arrange them from most likes to least. Assume that any tweets without a listed media type are of type “text”.</li>
+</ol>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc3RyaW5ncyA8LSBcbiAgXG50d2VldHMgJT4lIFxuICBcbiAgbXV0YXRlKHRleHQgPSBzdHJfcmVtb3ZlKHRleHQsIFwiW1s6cHVuY3Q6XV1cIikpICU+JSBcbiAgbXV0YXRlKHRleHQgPSBlbmNvZGVTdHJpbmcodGV4dCkpICU+JSBcbiAgbXV0YXRlKHR3ZWV0X2xlbmd0aCA9IG5jaGFyKHRleHQpKSAlPiUgXG5cbmBgYCJ9 -->
+<pre class="r"><code>strings &lt;- 
+  
+tweets %&gt;% 
+  
+  mutate(text = str_remove(text, &quot;[[:punct:]]&quot;)) %&gt;% 
+  mutate(text = encodeString(text)) %&gt;% 
+  mutate(tweet_length = nchar(text)) %&gt;% 
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>5.Find the mean number of characters that a CodeClan tweet contains.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudHdlZXRzICU+JVxuICBzdW1tYXJpc2UoYXZnX3R3ZWV0X2xlbmd0aCA9IG1lYW4oZGlzcGxheV90ZXh0X3dpZHRoKSlcbmBgYCJ9 -->
+<pre class="r"><code>tweets %&gt;%
+  summarise(avg_tweet_length = mean(display_text_width))</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>6.The code_clan_info.csv data file contains status_url along with other info. Load this in, and join it to the code_clan_tweets tibble, so that you have a status_url for each tweet. Decide which variable to join the tibbles on.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>7.From your new joined data, create a new tibble codeclan_hashtags containing only the tweet_id and hashtags in lowercase for analysis. Keep only those tweets with hashtags.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>8.Some tweets have more than one hashtag, denoted by the c( symbols at the start of the string. Use the str_sub() and str_detect() functions and your codeclan_hashtags tibble from above to find all the cases in which the hashtag string begins with charactersc(</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuaGFzaHRhZ3NfbXVsdGlwbGUgPC0gY29kZWNsYW5faGFzaHRhZ3MgJT4lIFxuICBtdXRhdGUoZmlyc3RfbGV0dGVycyA9IHN0cl9zdWIgPz8/P1xuYGBgIn0= -->
+<pre class="r"><code>hashtags_multiple &lt;- codeclan_hashtags %&gt;% 
+  mutate(first_letters = str_sub ????</code></pre>
+<!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiUiBOb3RlYm9vayIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKYGBge3J9CmxpYnJhcnkodGlkeXZlcnNlKQpgYGAKCgpgYGB7cn0KdHdlZXRzIDwtIHJlYWRfY3N2KCJkYXRhL2NvZGVfY2xhbl90d2VldHMuY3N2IikKYGBgCgo=</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiUiBOb3RlYm9vayIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKYGBge3J9CmxpYnJhcnkodGlkeXZlcnNlKQpsaWJyYXJ5KGphbml0b3IpCmBgYAoKYGBge3J9CnR3ZWV0cyA8LSByZWFkLmNzdigiZGF0YS9jb2RlX2NsYW5fdHdlZXRzLmNzdiIpCmBgYAoKYGBge3J9CnR3ZWV0cwpgYGAKMS5Mb2FkIHRoZSBjb2RlX2NsYW5fdHdlZXRzLmNzdiBkYXRhLiBGaW5kIHRoZSBudW1iZXIgb2Ygcm93cywgY29sdW1ucywgYW5kIGxpc3QgYWxsIHRoZSB2YXJpYWJsZSBuYW1lcy4KUm93cyA9IDIzNApDb2x1bW5zID0gMjcKVmFyaWFibGUgTmFtZXMgPSAyNwoKYGBge3J9CmxzKHR3ZWV0cykKbmFtZXModHdlZXRzKQpzdHIodHdlZXRzKQpsZXZlbHModHdlZXRzKQpjbGFzcyh0d2VldHMpCmhlYWQodHdlZXRzLCA1KQp0YWlsKHR3ZWV0cywgNSkKYGBgCgoyLkZpbmQgdGhlIHRvdGFsIG51bWJlciBvZiBmYXZvdXJpdGVkIHR3ZWV0cyAoc3RvcmVkIGluIGZhdm9yaXRlX2NvdW50KSB0aGF0IENvZGVDbGFuIHR3ZWV0cyBoYXZlIGdvdC4gRG9u4oCZdCBhZGQgYSB0d2VldOKAmXMgZmF2b3JpdGVfY291bnQgdG8gdGhlIHRvdGFsIHdoZW4gdGhlIHR3ZWV0IHdhcyBxdW90ZWQgKHNlZSB0aGUgaXNfcXVvdGUgdmFyaWFibGUpLgoKYGBge3J9CnR3ZWV0cyAlPiUKICAKICBmaWx0ZXIoaXNfcXVvdGUgPT0gRkFMU0UpICU+JQogIHN1bW1hcmlzZSh0b3RhbCA9IHN1bShmYXZvcml0ZV9jb3VudCkpCgpgYGAKCjMuU3VtbWFyaXNlIHRoZSBtZWFuIG51bWJlciBvZiByZXR3ZWV0cyAocmV0d2VldF9jb3VudCksIHNwbGl0IGJ5IHRoZSB0eXBlIG9mIHBsYXRmb3JtIHRoYXQgd2FzIHVzZWQgdG8gdHdlZXQgKHNvdXJjZSkuIEFnYWluLCBvbWl0IHF1b3RlZCB0d2VldHMgZnJvbSB0aGUgbWVhbi4KCmBgYHtyfQp0d2VldHMgJT4lCiAgZmlsdGVyKGlzX3F1b3RlID09IEZBTFNFKSAlPiUKICBncm91cF9ieShzb3VyY2UpICU+JQogIHN1bW1hcmlzZShtZWFuID09IHJldHdlZXRfY291bnQpICMgd3JvbmcgPz8/CmBgYAoKCjQuIENvdW50IHRoZSB0b3RhbCBudW1iZXIgb2YgbGlrZXMgKGkuZS4gdG90YWwgb2YgZmF2b3JpdGVfY291bnQpLCBzcGxpdCBieSBtZWRpYSB0eXBlLCBhbmQgYXJyYW5nZSB0aGVtIGZyb20gbW9zdCBsaWtlcyB0byBsZWFzdC4gQXNzdW1lIHRoYXQgYW55IHR3ZWV0cyB3aXRob3V0IGEgbGlzdGVkIG1lZGlhIHR5cGUgYXJlIG9mIHR5cGUg4oCcdGV4dOKAnS4KYGBge3J9CnN0cmluZ3MgPC0gCiAgCnR3ZWV0cyAlPiUgCiAgCiAgbXV0YXRlKHRleHQgPSBzdHJfcmVtb3ZlKHRleHQsICJbWzpwdW5jdDpdXSIpKSAlPiUgCiAgbXV0YXRlKHRleHQgPSBlbmNvZGVTdHJpbmcodGV4dCkpICU+JSAKICBtdXRhdGUodHdlZXRfbGVuZ3RoID0gbmNoYXIodGV4dCkpICU+JSAKCmBgYAoKNS5GaW5kIHRoZSBtZWFuIG51bWJlciBvZiBjaGFyYWN0ZXJzIHRoYXQgYSBDb2RlQ2xhbiB0d2VldCBjb250YWlucy4KYGBge3J9CnR3ZWV0cyAlPiUKICBzdW1tYXJpc2UoYXZnX3R3ZWV0X2xlbmd0aCA9IG1lYW4oZGlzcGxheV90ZXh0X3dpZHRoKSkKYGBgCgo2LlRoZSBjb2RlX2NsYW5faW5mby5jc3YgZGF0YSBmaWxlIGNvbnRhaW5zIHN0YXR1c191cmwgYWxvbmcgd2l0aCBvdGhlciBpbmZvLiBMb2FkIHRoaXMgaW4sIGFuZCBqb2luIGl0IHRvIHRoZSBjb2RlX2NsYW5fdHdlZXRzIHRpYmJsZSwgc28gdGhhdCB5b3UgaGF2ZSBhIHN0YXR1c191cmwgZm9yIGVhY2ggdHdlZXQuIERlY2lkZSB3aGljaCB2YXJpYWJsZSB0byBqb2luIHRoZSB0aWJibGVzIG9uLgoKYGBge3J9CgpgYGAKCjcuRnJvbSB5b3VyIG5ldyBqb2luZWQgZGF0YSwgY3JlYXRlIGEgbmV3IHRpYmJsZSBjb2RlY2xhbl9oYXNodGFncyBjb250YWluaW5nIG9ubHkgdGhlIHR3ZWV0X2lkIGFuZCBoYXNodGFncyBpbiBsb3dlcmNhc2UgZm9yIGFuYWx5c2lzLiBLZWVwIG9ubHkgdGhvc2UgdHdlZXRzIHdpdGggaGFzaHRhZ3MuCgpgYGB7cn0KCmBgYAoKOC5Tb21lIHR3ZWV0cyBoYXZlIG1vcmUgdGhhbiBvbmUgaGFzaHRhZywgZGVub3RlZCBieSB0aGUgYyggc3ltYm9scyBhdCB0aGUgc3RhcnQgb2YgdGhlIHN0cmluZy4gVXNlIHRoZSBzdHJfc3ViKCkgYW5kIHN0cl9kZXRlY3QoKSBmdW5jdGlvbnMgYW5kIHlvdXIgY29kZWNsYW5faGFzaHRhZ3MgdGliYmxlIGZyb20gYWJvdmUgdG8gZmluZCBhbGwgdGhlIGNhc2VzIGluIHdoaWNoIHRoZSBoYXNodGFnIHN0cmluZyBiZWdpbnMgd2l0aCBjaGFyYWN0ZXJzYygKYGBge3J9Cmhhc2h0YWdzX211bHRpcGxlIDwtIGNvZGVjbGFuX2hhc2h0YWdzICU+JSAKICBtdXRhdGUoZmlyc3RfbGV0dGVycyA9IHN0cl9zdWIgPz8/PwpgYGAKCg==</div>
 
 
 
