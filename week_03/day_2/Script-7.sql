@@ -45,17 +45,10 @@ ORDER BY e.last_name  ASC NULLS LAST
 
 
 
-
-
 --4. Breakdown the number of employees in each of the teams,
 --including any teams without members.
 --Order the table by increasing size of team.
 
-SELECT
-	e.*,
-	t.name AS team_name,
-	
-	
 	SELECT 
   t.name AS team_name, 
   COUNT(e.id) AS num_employees
