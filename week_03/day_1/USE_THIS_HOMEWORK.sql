@@ -3,12 +3,14 @@ FROM employees
 
 
 --1. Find all the employees who work in the ‘Human Resources’ department. --
+
 SELECT *
 FROM employees 
 WHERE department = 'Human Resources';
 
 --2. Get the first_name, last_name, --
 --and country of the employees who work in the ‘Legal’ department. -- 
+
 SELECT
 	first_name,
 	last_name,
@@ -18,6 +20,7 @@ WHERE department = 'Legal';
 
 
 --3. Count the number of employees based in Portugal. --
+
 SELECT 
 	COUNT(id) AS employees_from_portugal
 FROM employees 
@@ -25,6 +28,7 @@ GROUP BY country = 'Portugal'
 
 
 --4. Count the number of employees based in either Portugal or Spain. --
+
 SELECT
 	COUNT(id) AS employees_from_poland_or_spain
 FROM employees 
@@ -91,13 +95,21 @@ ORDER BY department ASC NULLS LAST, fte_hours ASC NULLS LAST
 --table in descending order of the number of employees--
 --lacking a first name, and then in alphabetical order by department.--	
 
+SELECT
+	department,
+	COUNT(id) AS num_employess_no_first
+FROM employees 
+WHERE first_name IS NULL
+GROUP BY department 
+HAVING COUNT(id) >= 2
+ORDER BY COUNT(id) DESC NULLS LAST, department ASC NULLS LAST
 
 
 --12 Find the proportion of employees in each department who are grade 1.--
 	
 SELECT
-	grade,
 	department,
-	SUM
+	SUM(CAST(grade = 1 AS INT) / CAST(COUNT(id) AS REAL) AS prop_grade_1
 FROM employees 
-WHERE
+GROUP BY department 
+
