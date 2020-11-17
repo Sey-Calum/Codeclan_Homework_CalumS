@@ -1,0 +1,169 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+16th November 2020 - Introduction to ggplot2 Homework
+
+Calum Sey - CodeClan
+
+
+Homework Info
+This homework recaps what you learnt in class today.
+
+You’ll be looking at the backpack dataset contained within the CodeClanData package using tidyverse. You’ll need to load the appropriate packages first.
+
+In all plots you make, ensure your labels are appropriate. You also must write down a short summary of what each plot tells you in order to meet MVP.
+
+
+Question 1.
+
+Load in the libraries you need, and look at the backpack data. Take note of variable names and dimensions.
+
+```{r}
+library(tidyverse)
+library(janitor)
+library(CodeClanData)
+```
+
+```{r}
+backpack <- clean_names(backpack)
+backpack
+```
+ANSWER
+There is 100 rows and 9 columns. You can see the headings from the data above.
+
+
+Question 2.
+
+What is the distribution of backpack weights that students are carrying? Choose an appropriate graph to show the distribution.
+
+```{r}
+ggplot(backpack) +
+  aes(x = backpack_weight) +
+  geom_bar(fill = "blue")
+```
+ANSWER
+We can see the majority of backpack weights are betwwen 6 and 15 (kg we can guess)
+
+
+Question 3.
+
+Are there differences in backpack weight between sex?
+
+```{r}
+ggplot(backpack) +
+  aes(x = backpack_weight, fill = sex) +
+  geom_bar() +
+  facet_wrap(~ sex)
+
+```
+ANSWER
+No, the weights of the backpacks are mainly the same.
+
+
+Question 4.
+
+What is the relationship between body weight and backpack weight?
+
+```{r}
+ggplot(backpack) +
+  aes(x = backpack_weight,
+      y = body_weight) +
+  geom_col(fill = "dark blue", colour = "white")
+```
+ANSWER 
+Body weight doesn't seem to have much impact on the bags weight
+
+
+
+Question 5.
+
+Is this relationship different between men and women? Choose an appropriate plot and interpret your findings.
+
+```{r}
+ggplot(backpack) +
+  aes(x = backpack_weight, y = body_weight, colour = sex) +
+  geom_point() +
+  facet_wrap(~ sex)
+```
+ANSWER
+Yes, the males seem to have a greater body weight than the females
+
+
+Question 6.
+
+What proportion of students report back pain?
+
+Question 7.
+
+Is this proportion different between men and women?
+
+```{r}
+ggplot(backpack) +
+  aes(x = back_problems, fill = sex) +
+  geom_bar()
+```
+ANSWER
+26 or 27 of the students have backpain, mainly females.
+
+
+Question 8.
+
+Now you’ve investigated your data separately, create plots to describe the relationship between backpack weight, body weight, gender and reported backpain.
+
+Try both backpack_weight and body_weight as well as the ratio.
+
+Hint: faceting would be useful here.
+
+
+```{r}
+ggplot(backpack) +
+  aes(x = backpack_weight,
+      y = body_weight,
+      fill = sex) +
+  geom_col() +
+  facet_wrap(back_problems ~ sex, 
+             labeller = "label_both")
+  
+```
+ANSWER
+we can see that both males and females suffer from backpain at all weights of backpack. not just on the heavier side of the scale.
+
+
+
+
+Extensions
+
+Question 1.
+
+Does reported backpain differ across the year groups? Ignore year 0 in your data.
+
+```{r}
+ggplot(backpack) +
+  aes(x = year,
+      y = back_problems) +
+  geom_col(fill = "purple")
+```
+ANSWER
+Yes it does. years 3 to 5 seem to suffer from back pain more offten
+
+
+
+Question 2.
+
+Is there a difference between how heavy the bags those in different years carry?
+
+```{r}
+ggplot(backpack) +
+  aes(x = backpack_weight,
+      y = back_problems,) +
+  geom_col() +
+  facet_wrap(~ year)
+
+```
+ANSWER
+No, each year has the same backpack weight spread. Some years have more issues with back problems. But the difference doesn't seem to be related to the weight of the backpack between the years
+
+
+
