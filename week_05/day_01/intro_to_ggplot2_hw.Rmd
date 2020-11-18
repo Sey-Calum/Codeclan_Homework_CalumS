@@ -142,11 +142,11 @@ Does reported backpain differ across the year groups? Ignore year 0 in your data
 ```{r}
 ggplot(backpack) +
   aes(x = year,
-      y = back_problems) +
-  geom_col(fill = "purple")
+      y = back_problems, fill = back_problems) +
+  geom_col()
 ```
 ANSWER
-Yes it does. years 3 to 5 seem to suffer from back pain more offten
+Yes it does. years 3 to 5 seem to suffer from back pain more often
 
 
 
