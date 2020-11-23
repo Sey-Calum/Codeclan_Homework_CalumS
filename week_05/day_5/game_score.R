@@ -23,7 +23,6 @@ ui <- fluidPage(
     sidebarPanel(
       tabsetPanel(
         verticalLayout(
-          fluidRow(2,
             tabPanel("Score",
                    "Publisher Sales",
                    "Genre Sales")
@@ -33,13 +32,13 @@ ui <- fluidPage(
     )
   ),
   
-  #Comparison of the "Criric_Score" vs "User_Score"
+  #Comparison of the "Critic_Score" vs "User_Score"
   
     mainPanel(
       fluidRow(
       tabsetPanel(
         tabPanel(
-          column(10,
+          column(12,
             plotOutput("critic_score"),
             plotOutput("user_score"))
           
@@ -47,7 +46,7 @@ ui <- fluidPage(
         
         #Developer Sales with selection of the Game Name
         
-        column(10,
+        column(12,
           plotOutput("publisher_sales")),
         column(5,
                 selectInput("name",
@@ -58,7 +57,7 @@ ui <- fluidPage(
         
         #Genre Sales with selection of a Game Name
         
-        column(10,
+        column(12,
                plotOutput("genre_sales")) ,
                selectInput("name",
                           "Score",
@@ -67,8 +66,8 @@ ui <- fluidPage(
         )
       )
       )
-    )
-  )
+)
+  
 
           
   
