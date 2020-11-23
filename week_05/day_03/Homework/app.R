@@ -4,17 +4,18 @@ library(shinythemes)
 
 #I've not done anything that will look pleasant in the final Dashboard for this homework.
 #Instead I've been finding out what the limitations of the widgets and tabs are.
-#So you will find a the code has just been buried deeper and deeper into some of the tabs
+#So you will find a the code has just been buried into some of the tabs
 
 
-olympics_overall_medals <- read_csv("data/olympics_overall_medals.csv")
+olympics_overall_medals <- read_csv("olympics_overall_medals.csv")
 
 all_teams <- unique(olympics_overall_medals$team)
 
 ui <- fluidPage(
     theme = shinytheme("cyborg"),
     
-    titlePanel(tags$i("Olympic Medals")),
+    titlePanel(tags$i("Olympic Medals")),    
+
     
     navlistPanel(
         tabPanel(tags$a("Vertical Layout"), verticalLayout("Season",
@@ -59,7 +60,7 @@ server <- function(input, output) {
     
     output$medal_plot <- renderPlot({
         olympics_overall_medals %>%
-            filter(team == input$team) %>%
+            filter(team == input$team) %>% # this filter is selecting all teams with the use of input$team
             filter(season == input$season) %>%
             ggplot() +
             aes(x = medal, y = count, fill = medal) +
