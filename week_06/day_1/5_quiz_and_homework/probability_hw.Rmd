@@ -1,0 +1,142 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+Monday 23rd Nov 2020 - Probability homework
+
+Calum Sey - CodeClan
+
+
+ MVP - The Titanic
+ 
+ A data set detailing the survival or death of passengers and crew members on the RMS Titanic is given in the data folder. Some time after the disaster a journalist wrote that crew members were more likely to have survived the sinking than passengers. This was disputed by a descendant of one of the surviving crew members, who suggested that the opposite was true, i.e. passengers were more likely to have survived than crew.
+
+You’re going to calculate the conditional probabilities prob( survived ∣ crew ) and prob( survived ∣ passenger ) to settle this dispute.
+
+Have a look at the distinct values of the class variable, this will tell you whether each individual was a passenger (1st, 2nd or 3rd class) or a member of the crew (treat restaurant staff as crew)
+
+Loading packages
+
+You may want to use prob and gtools later in the homework, and the tidyverse for this section, but if you load prob after tidyverse, dplyr::filter() will be masked. So load your packages in this order:
+
+```{r}
+library(prob)
+library(gtools)
+library(tidyverse)
+library(here)
+```
+
+```{r}
+titanic <- read_csv(here("data/titanic.csv"))
+```
+
+# Distinct values withing class
+
+```{r}
+distinct(titanic, class)
+```
+
+```{r}
+titanic
+```
+
+```{r}
+titanic_passengers <- titanic %>% 
+  filter(class %in% c("1st", "2nd", "3rd"))
+titanic_passengers
+```
+
+From the titanic data set we have 2,207 rows. When only people in the 1st, 2nd and 3rd class is search for, we are left with 1317 rows. 
+
+Therefore, there is 1317 passengers. With that logic we can take away 1,317 from the 2,207 rows we originally started with to determine the number of crew.
+
+2,207 - 1,317 = 890 
+
+With the code bellow we can see this is correct.
+
+```{r}
+titanic_crew <- titanic %>% 
+  filter(class %in% c("engineering crew",
+                      "victualling crew",
+                      "restaurant staff",
+                      "deck crew",
+                      "titanic_crew"))
+titanic_crew
+```
+
+```{r}
+titanic_passengers <- titanic_passengers %>% 
+  filter(survived == "yes")
+titanic_passengers
+```
+
+From the 1,317 passengers, only 500 survived
+
+```{r}
+titanic_crew <- titanic_crew %>% 
+  filter(survived == "yes") 
+titanic_crew
+```
+
+From the 890 crew, only 211 survived
+
+
+You’re going to calculate the conditional probabilities prob( survived ∣ crew ) and prob( survived ∣ passenger ) to settle this dispute.
+
+ANSWER
+
+THERE IS:
+  1,317 PASSENGERS
+  890 CREW
+  2,207 TOTAL
+  
+SURVIVED:
+  500 PASSENGERS
+  211 CREW
+  711 TOTAL
+
+prob of PASSENGERS = 500 / 1317 = 0.379 = 38%
+
+prob of CREW = 211 / 890 = 0.237 = 24%
+
+
+
+
+MVP and Extension - Probability problems
+
+1. If I roll a six-sided dice once, what is the probability of getting a number less than 5?
+
+ANSWER = 4/6 = 2/3
+
+2. How many outcomes are there in the sample space of an experiment in which we toss three dice?
+
+ANSWER 6^3 = 216
+
+
+3. In an experiment where we roll four dice:
+
+  1. how many outcomes are in the event total_equals_5_6_7 (i.e. the total of the four dice         equals 5, 6 or 7)?
+
+  ANSWER = 
+
+  2. what is the probability of this event?
+  
+  ANSWER = 0.0261
+
+  3. what assumptions do we apply in answering part ii?
+  
+  ANSWER = None of the dice can be 5 or higher and there can at minimum be 3 ones rolled.
+
+
+6. If I draw a single card from a 52-card deck, and it is black, what is the probability that its suit is spades?
+
+ANSWER
+
+52/2 = 26/2 = 12
+Therefore the probability is 1/12 or 0.0833
+
+
+
+
+
