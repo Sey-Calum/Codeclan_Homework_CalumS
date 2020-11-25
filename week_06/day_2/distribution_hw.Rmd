@@ -1,0 +1,77 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+Tuesday 24th Nov 2020 - Distributions homework
+
+Calum Sey - CodeClan
+
+TASK
+You are given a cut of a database containing details of mobile phones and their customer reviews on an online shopping site in file 20190928-items.csv. Each row in the data corresponds to one model of mobile phone. Use the data to answer the following questions.
+
+As part of the MVP we want you not to just run the code but also have a go at intepreting the results - this is the main learning objective from this homework. Don’t worry if you aren’t sure, it’s ok to get it wrong, but give it a go, through trying we will learn.
+
+You can use a filter() to get only the ratings within one-, two- and three standard deviations of the mean, and then think about how to calculate what proportion each of these filtered sets make of the total number of ratings. You’ll need to use three separate filter() and summarise() pipes to do this.
+
+```{r}
+library(prob)
+library(tidyverse)
+library(here)
+library(janitor)
+```
+
+MVP
+
+```{r}
+mobile <- read_csv(here("data/20190928-items.csv")) %>% 
+  clean_names()
+```
+
+```{r}
+view(mobile)
+```
+
+Find the brand with the highest numbers of phones in the dataset.
+
+```{r}
+mobile %>% 
+  count(brand)
+```
+ANSWER
+Samsung with 397
+
+-----------
+
+For your top brand, plot the distribution of phone ratings as a probability density, overlaying a fitted normal distribution. Do you think the normal distribution provides a good model of these ratings?
+
+Hint - you will need to calculate the mean() and sd() of the ratings to plot the appropriate normal. Alternatively, investigate using the fitdistr() function in the MASS package]
+
+```{r}
+mobile %>% 
+  summarise(brand = mean(rating))
+```
+ANSWER
+
+Mean rating of Samsung = 3.607
+
+-----------
+
+Standard Deviation
+
+```{r}
+mobile %>%
+  group_by(brand) %>%
+  summarise(
+    sd = sd(rating)
+  )
+```
+
+ANSWER
+
+Standard Deviation of Samsung = 0.684
+
+
+
+
+

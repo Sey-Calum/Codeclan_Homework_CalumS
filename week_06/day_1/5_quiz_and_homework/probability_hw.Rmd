@@ -47,7 +47,7 @@ titanic_passengers <- titanic %>%
 titanic_passengers
 ```
 
-From the titanic data set we have 2,207 rows. When only people in the 1st, 2nd and 3rd class is search for, we are left with 1317 rows. 
+From the titanic data set we have 2,207 rows. When only people in the 1st, 2nd and 3rd class is searched for, we are left with 1317 rows. 
 
 Therefore, there is 1317 passengers. With that logic we can take away 1,317 from the 2,207 rows we originally started with to determine the number of crew.
 
