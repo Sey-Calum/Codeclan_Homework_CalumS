@@ -48,6 +48,15 @@ For your top brand, plot the distribution of phone ratings as a probability dens
 Hint - you will need to calculate the mean() and sd() of the ratings to plot the appropriate normal. Alternatively, investigate using the fitdistr() function in the MASS package]
 
 ```{r}
+samsung_rate <- mobile %>% 
+  summarise(
+    filter(brand == "Samsung") %>% 
+    mean(rating)
+  )
+```
+
+
+```{r}
 mobile %>% 
   summarise(brand = mean(rating))
 ```
