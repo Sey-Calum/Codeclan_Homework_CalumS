@@ -1,0 +1,195 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+27th of November 2020 - Hypothesis tests & probability
+
+CodeClan - Calum Sey
+
+```{r}
+library(tidyverse)
+library(janitor)
+library(here)
+```
+
+```{r}
+retail <- read_csv(here("data/online_retail.csv")) %>% 
+  clean_names()
+numbers <- read_csv(here("data/online_retail.numbers")) %>% 
+  clean_names()
+subset <- read_csv(here("data/online_retail_subset.csv")) %>% 
+  clean_names()
+```
+
+
+Hypothesis testing - practical
+TASK
+You work for an animal conservation organisation and are looking to do some investigating into some of the animals to provide evidence for some projects you are looking to run.
+
+```{r}
+data(msleep)
+msleep
+```
+
+Jabberwockies sleep for around 7 hours a night, on average. Perform an appropriate statistical test to determine whether the mean sleep_total in the sampled population of animal types differs from the typical value for jabberwockies.
+
+```{r}
+library(infer)
+```
+
+```{r}
+mean_sleep <- msleep %>% 
+  summarise(mean = mean(sleep_total)) %>% 
+  pull()
+```
+
+```{r}
+null_distribution <- msleep %>% 
+  specify(response = sleep_total) %>% 
+  hypothesise(null = "point", mu = 7) %>% 
+  generate(reps = 5000, type = "bootstrap") %>% 
+  calculate(stat = "mean")
+null_distribution
+```
+
+```{r}
+null_vis <- null_distribution %>% 
+  visualise(bins = 50) +
+  shade_p_value(observed_stat, direction ="both")
+null_vis
+```
+
+```{r}
+p_value <- null_distribution %>% 
+  get_p_value(observed_stat, direction =  "both")
+p_value
+```
+
+
+Perform an appropriate statistical test to determine whether omnivores sleep for significantly longer than herbivores, on average.
+
+
+```{r}
+omni_herb <- msleep %>% 
+  select(vore, sleep_total) %>% 
+  filter(vore %in% c("omni", "herbi"))
+```
+
+```{r}
+omni_herb %>% 
+  ggplot()+
+  aes(y = sleep_total, x = vore) + 
+  geom_boxplot()
+```
+
+```{r}
+observed_stat <- h_o_animals %>% 
+  specify(sleep_total ~ vore) %>% 
+  calculate("diff in means", order = c("omni", "herbi"))
+```
+
+```{r}
+null_distribution_omni_herb <- omni_herb %>% 
+  specify(sleep_total ~ vore) %>% 
+  hypothesise(null = "independence") %>% 
+  generate(reps = 5000, type = "permute") %>% 
+  calculate("diff in means", order = c("omni", "herbi"))
+null_distribution_omni_herb
+```
+
+```{r}
+null_distribution_omni_herb %>% 
+  visualise() +
+  shade_p_value(observed_stat, "right")
+```
+
+```{r}
+null_distribution_omni_herb %>% 
+get_p_value(observed_stat, "right")
+```
+
+Perform an appropriate statistical test to determine whether the proportion of domesticated animal types in the population of animal types is greater than 5%.
+
+H0 : domesticated_animals = 0.05
+Ha : domesticated_animals = 0.05
+
+```{r}
+msleep
+```
+
+```{r}
+domesticated <- msleep %>% 
+  group_by(conservation) %>% 
+  summarise(prop = n()/ nrow(domesticated))
+```
+??????????
+
+-------------------
+
+ Hypothesis testing - interpretation
+TASK
+For the following three business problems write out H0 and Ha in both mathematical notation and in words. Also state the method you would use to generate the null distribution (bootstrap, permutation or simulation).
+
+QUESTIONS
+1. You work for a independent coffee shop. You’ve performed a small survey in the local town and found that 40% of the people you randomly asked were aware of your shop in the town. You then conduct a marketing campaign by flyering local venues and targeting advertisements on social media. Finally you conduct a second small random survey in the town, asking if people are aware of your coffee shop. You want to test the hypothesis that the campaign has significantly increased awareness of the shop.
+
+mathematical notation
+H0 :  aware_of_shop = 0.40
+Ha :  aware_of_shop > 0.40
+
+Written notation
+H0 = the proportion of people aware of the shop  = 0.4
+Ha = the propprotion of people aware of the shop > 0.4 
+
+Because we are using proportions I'd use simulation to generate the results
+
+
+
+2. You work for a website design company and have performed an A/B test on the position of a banner on a website page promoting a particular item.
+In the current test, the first group continues to be shown the banner at the right hand side of the webpage (its usual position) while the test group is shown it at the top of the page. The performance metric we will be testing is click through rate (CTR) on the banner, i.e. what proportion of users click on the banner
+
+
+mathematical notation
+H0 : clicks_right - pclicks_top = 0
+Ha : clicks_right - pclicks_top < 0
+
+Because we are using 2 samples I'd use premutation to generate the results
+
+
+
+3. You work as an analyst for a car manufacturing company - they have specific standards they must meet for standards and regulation purposes. You have been asked to check the quality control of the manufacture of a particular car part. The part must have a width of 145mm, with a small (given) level of tolerance. You have been given data on a sample of 1,000 parts produced over the period of a week.
+
+
+H0 : part_width  = 145
+Ha : part_width != 145
+
+H0 = the part's width is = 145
+Ha = the part's width is not = 145
+
+Because we are using with 1 mean value I'd use bootstraping to generate the results
+
+---------------
+
+Interpreting the results
+TASK
+For the 3 business problems stated above, imagine we performed you got the following p-values (with the given significance levels) write out your interpretation of the results.
+
+1. Coffee shop problem. Significance level: 0.05, calculated p-value: 0.07
+
+the p-value is greater than α then we lack sufficient evidence to reject H0 and so we fail to reject H0. Based on our sample, we do not have enough evidence that the proportion is statistically significantly greater than the null value.
+
+
+
+2. Website company problem. Significance level: 0.01, p-value: 0.006
+
+the p-value is less than α we reject H0 in favour of Ha. We found enough evidence in the sample to suggest that the sample mean/proportion is statistically significantly different from the null value.
+
+
+
+3. Manufacturing company problem. Significance level: 0.05, p-value: 0.55
+
+If the p-value is greater than α then we lack sufficient evidence to reject H0 and so we fail to reject H0. Based on our sample, we do not have enough evidence that the mean/proportion is statistically significantly different from, less than or greater than the null value.
+
+
+

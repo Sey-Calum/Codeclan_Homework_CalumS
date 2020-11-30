@@ -62,7 +62,7 @@ bootstrap_sample %>%
 ```
 
 --------------
-here is my confusion. I understnad what Standard Deviationa and Bootstart is / means with reagrds to the data set. I think my confusion here is what are the requirements for Bootstart (do the values that are used always need to be the MEAN value). Also, without taking a sample, we only end up with one value. Which then leads to a pointles plot. I tried working the code for this, but couldn't wrap my head around it. I bet it's really simple.
+here is my confusion. I understand what Standard Deviationa and Bootstart is / means with reagrds to the data set. I think my confusion here is what are the requirements for Bootstart (do the values that are used always need to be the MEAN value). Also, without taking a sample, we only end up with one value. Which then leads to a pointless plot. I tried working the code for this, but couldn't wrap my head around it. I bet it's really simple.
 
 The rest of the tasks don't seem like they'll give me any bother. But without the Bootstrap they will probably be invalid. I'll still write out what I would have done tho.
 --------------
