@@ -3,12 +3,6 @@ title: "R Notebook"
 output: html_notebook
 ---
 
----
-title: "R Notebook"
-output: html_notebook
----
-
-
  - 5th of January 2021
 
 Calum Sey - CodeClan Homework
