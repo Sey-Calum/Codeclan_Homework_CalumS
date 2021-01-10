@@ -1,0 +1,23 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+Homework Quiz - 10th of January 2021
+
+Calum Sey - Code Clan
+
+Question 1
+
+I want to predict how well 6 year-olds are going to do in their final school exams. Using the following variables am I likely under-fitting, fitting well or over-fitting? Postcode, gender, reading level, score in maths test, date of birth, family income.
+
+Likely to over-fit the prediction, as there is an overload of varaibles.
+
+
+Question 2
+
+If I have two models, one with an AIC score of 34,902 and the other with an AIC score of 33,559 which model should I use?
+
+
+
+
