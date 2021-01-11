@@ -67,6 +67,27 @@ Subset selection refers to the task of finding a small subset of the available i
 It is estimated on 5% of model projects end up being deployed. What actions can you take to maximise the likelihood of your model being deployed?
 
 ANSWER
+- Future proofing the model is a must. As project plans often change, sometimes quite drastically over the process of a project. 
+- Having a range of predictors
 
+
+  #Question 10
+What metric could you use to confirm that the recent population is similar to the development population?
+  
+ANSWER
+Population Stability Index - (PSI)
+
+  
+  #Question 11
+How is the Population Stability Index defined? What does this mean in words?
+
+ANSWER
+In simple words, Population Stability Index (PSI) compares the distribution of a scoring variable (predicted probability) in scoring data set to a training data set that was used to develop the model.
+
+
+  #Question 12
+Above what PSI value might we need to start to consider rebuilding or recalibrating the model
+
+ANSWER
 
 
