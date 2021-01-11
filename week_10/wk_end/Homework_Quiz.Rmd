@@ -5,19 +5,68 @@ output: html_notebook
 
 Homework Quiz - 10th of January 2021
 
-Calum Sey - Code Clan
+Calum Sey - CodeClan
 
-Question 1
-
+  #Question 1
 I want to predict how well 6 year-olds are going to do in their final school exams. Using the following variables am I likely under-fitting, fitting well or over-fitting? Postcode, gender, reading level, score in maths test, date of birth, family income.
 
-Likely to over-fit the prediction, as there is an overload of varaibles.
+ANSWER
+Likely to over-fit the prediction, as there is an overload of variables.
 
 
-Question 2
-
+  #Question 2
 If I have two models, one with an AIC score of 34,902 and the other with an AIC score of 33,559 which model should I use?
 
+ANSWER
+You should use the lower score, being 33,559. As for AIC and BIC a lower score is better
+
+
+  #Question 3 
+I have two models, the first with: r-squared: 0.44, adjusted r-squared: 0.43. The second with: r-squared: 0.47, adjusted r-squared: 0.41. Which one should I use?
+
+ANSWER
+You should use the first model. As a larger adjusted r-squared value is better
+
+
+  #Question 4
+I have a model with the following errors: RMSE error on test set: 10.3, RMSE error on training data: 10.4. Do you think this model is over-fitting?
+
+ANSWER
+I do not believe the model to be over-fitted. 
+
+
+  #Question 5
+How does k-fold validation work?
+
+ANSWER
+Cross-validation is a resampling procedure used to evaluate machine learning models on a limited data sample. The procedure has a single parameter called k that refers to the number of groups that a given data sample is to be split into.
+
+
+  #Question 6
+What is a validation set? When do you need one?
+
+ANSWER
+A set of examples used to tune the parameters of a classifier, for example to choose the number of hidden units in a neural network. – Test set: A set of examples used only to assess the performance of a fully-specified classifier. These are the recommended definitions and usages of the terms.
+
+
+  #Question 7
+Describe how backwards selection works.
+
+ANSWER
+This approach involves either forward selection, adding features one at a time, or backward selection, removing features one at a time until some criterion is reached. Additionally, a bidirectional selection method is available that involves adding or removing a feature at each step.
+
+
+  #Question 8
+Describe how best subset selection works
+
+ANSWER
+Subset selection refers to the task of finding a small subset of the available independent variables that does a good job of predicting the dependent variable.
+
+
+  #Question 9
+It is estimated on 5% of model projects end up being deployed. What actions can you take to maximise the likelihood of your model being deployed?
+
+ANSWER
 
 
 

@@ -1,0 +1,170 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+
+```{r}
+library(tidyverse)
+library(modelr)
+library(GGally)
+library(ggfortify)
+library(janitor)
+library(here)
+library(broom)
+```
+
+```{r}
+avocados <- read_csv(here("data/avocado.csv")) %>% 
+  clean_names()
+```
+
+```{r}
+avocados
+glimpse(avocados)
+```
+
+```{r}
+min(avocados$average_price)
+max(avocados$average_price)
+```
+
+```{r}
+min(avocados$date)
+max(avocados$date)
+```
+
+```{r}
+str(avocados$region)
+unique(avocados$region)
+```
+
+
+Data Review
+
+- X1 column is not needed
+- date will need broken down other wise there will be over-fitting, if using it
+- region has cities and states within it
+- max and min price of avos is 0.44 and 3.25
+- starting date is 2015-01-04, end date is 2018-03-25
+- four bag sales types. Either review individual sales or total
+
+
+```{r}
+clean_avocados <- avocados %>% 
+  select(-x1) %>% 
+  mutate(year = factor(year, levels = c(2015, 2016, 2017, 2018))) %>% 
+  select(-date) %>% 
+  mutate(type = as_factor(type),
+         region = as_factor(region)) %>% 
+  filter(region != "TotalUS") 
+clean_avocados
+```
+
+```{r}
+summary(clean_avocados)
+```
+
+
+```{r}
+alias(average_price ~ ., data = clean_avocados)
+```
+
+
+```{r}
+clean_avocados %>%
+  select(average_price, type, year, x4046, x4225, x4770) %>%
+  ggpairs(aes(colour = type, alpha = 0.5))
+```
+
+
+```{r}
+clean_avocados %>% 
+  ggplot(aes(x = total_bags, y = average_price, col = region)) +
+  geom_point()
+```
+
+
+```{r}
+test_data <- nrow(clean_avocados)
+test_sample <- sample(1:test_data, size = n_data*0.05)
+```
+
+```{r}
+test <- slice(clean_avocados, test_index)
+train <- slice(clean_avocados, -test_index)
+```
+
+```{r}
+avo_numeric <- train %>% 
+  select(where(is.numeric))
+avo_non_numeric <- train %>% 
+  select(-region) %>% 
+  select(average_price, !is.numeric)
+```
+
+```{r}
+ggpairs(avo_numeric)
+```
+
+```{r}
+ggpairs(avo_non_numeric)
+```
+
+
+
+
+
+```{r}
+mod1a <- lm(average_price ~ year, data = test)
+mod1a
+```
+
+```{r}
+mod1b <- lm(average_price ~ total_volume, data = test)
+mod1b
+```
+
+```{r}
+mod1c <- lm(average_price ~ total_bags, data = test)
+mod1c
+```
+
+```{r}
+mod1d <- lm(average_price ~ type, data = test)
+mod1d
+```
+
+
+```{r}
+summary(mod1a)
+summary(mod1b)
+summary(mod1c)
+summary(mod1d)
+```
+
+
+
+```{r}
+mod2a <- lm(average_price ~ total_volume + type, data = test)
+mod1b
+```
+
+```{r}
+mod2b <- lm(average_price ~ total_bags + type, data = test)
+mod1c
+```
+
+```{r}
+mod2c <- lm(average_price ~ type + year, data = test)
+mod1d
+```
+
+
+```{r}
+summary(mod2a)
+summary(mod2b)
+summary(mod2c)
+```
+
+
