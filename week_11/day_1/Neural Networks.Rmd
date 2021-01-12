@@ -1,0 +1,61 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+Classification & clustering methods homework - 11th of January 2021
+
+Calum Sey - CodeClan
+
+
+#TASK
+investigate the difference between classification and clustering using the resources you find online, and then choose one of the machine learning methods listed below and write a paragraph or two on how it works, its strengths and weaknesses, and suitable areas of application. It would be good to find an example use case of your chosen method for a particular problem
+
+ANSWER
+Defining a neural network.
+A neural network is a series of algorithms that is used to recognize underlying relationships in a set of data through a process that mimics the way the human brain operates. In this sense, neural networks refer to systems of neurons, either organic or artificial in nature.
+Within a human, the brain roughly contains around 100 billion minuscule cells called neurons. Each neuron is made up of a cell body with a number of connections coming off it. Whereas, inside a computer, the equivalent to a brain cell is a tiny switching device called a transistor, that produces single value outputs. Only though mass collection of transistors, can we start to mimic the process of decision making .
+Which leads us to the basic idea of a neural network. Which is to simulate how the brain functions and makes decisions between the cells within the brain. The desirer is for it to learn things, recognize patterns, and make decisions in a humanlike way.
+
+Function of a neural network
+A neural network consists of nodes and connections. These make up the base structure of a neural network that consists of an input layer where we define the dosage, the hidden layers where we make an estimation on how we predict the neural network will function and the output layer where we extract the predicted effectiveness. 
+
+
+These nodes (also know and neurons) and connections can range from a few dozen to hundreds, thousands, or even millions of artificial neurons arranged in a series of layers, each of which connects to the layers on either side.
+What is a Activation Function
+Activation functions are mathematical equations that determine the output of a neural network. The function is attached to each neuron in the network, and determines whether it should be activated or not, based on whether each neuron’s input is relevant for the model’s prediction. Activation functions also help normalize the output of each neuron to a range between 1 and 0 or between -1 and 1.
+
+3 types of activation functions
+•	Binary Step Function
+•	Linear Activation Function
+•	Non – Linear Activation Function
+
+
+Example
+Imagine the "simple" problem of trying to determine whether or not an image contains a cat. Considering the diverse possibilities of how a cat may look in a picture, writing code to account for every scenario is almost impossible. But using machine learning, and more specifically neural networks, the program can use a generalized approach to understanding the content in an image. Using several layers of functions to decompose the image into data points and information that a computer can use, the neural network to start identifying trends that exist across the many examples that it processes and classify images by their similarities.
+After processing many training examples of cat images, the algorithm has a model of what elements, and their respective relationships, in an image are important to consider when deciding whether a cat is present in the picture or not. When evaluating a new image, the neural net compares the data points about the new image to its model, which is based off of all previous evaluations. It then uses some simple statistics to decides whether the image contains a cat or not based on how closely it matches the model.
+
+
+Practical application of Neural Networks
+Neural networks can be applied to a broad range of problems and can assess many different types of input, including images, videos, files, databases, and more. They also do not require explicit programming to interpret the content of those inputs.
+Some common applications of neural networks today, include image/pattern recognition, self-driving vehicle trajectory prediction, facial recognition, data mining, email spam filtering, medical diagnosis, and cancer research.
+
+
+
+Conclusion
+Neural networks are suitable for predicting time series mainly because of learning only from examples, without any need to add additional information that can bring more confusion than prediction effect. Neural networks are able to generalize and are resistant to noise. On the other hand, it is generally not possible to determine exactly what a neural network has learned and it is also hard to estimate possible prediction errors.
+Pros
+•	Inadequate knowledge, able to work with limited information
+•	Reliable, If an error occurs in one node, it doesn’t stop an output from being produced. (fault tolerance)
+•	Processing ability, Can perform more than one task at a time
+
+Cons
+•	Hardware, large drain on the processor and requires parallel processing power 
+•	Unexplained functioning, difficult to understand the decisions that have been made for the output result
+
+
+
+
+
+
+
