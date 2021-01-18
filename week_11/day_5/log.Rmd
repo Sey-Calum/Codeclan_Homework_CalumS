@@ -1,0 +1,37 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+
+```{r}
+library(tidyverse)
+library(janitor)
+library(GGally)
+library(here)
+```
+
+```{r}
+customer_purchases <- read.csv(here("data/orange_juice.csv")) %>% 
+  clean_names()
+```
+
+```{r}
+head(customer_purchases)
+```
+
+```{r}
+ggpairs(customer_purchases)
+```
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,50 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+Decision trees homework - 12th of January 2021
+
+Calum Sey - CodeClan
+
+```{r}
+library(rpart)
+library(rpart.plot)
+library(tidyverse)
+
+library(tidyverse)
+titanic_set <- read_csv('data/titanic_decision_tree_data.csv')
+
+shuffle_index <- sample(1:nrow(titanic_set))
+
+# shuffle the data so class order isn't in order - need this for training/testing split later on 
+titanic_set <- titanic_set[shuffle_index, ]
+```
+
+Question 1 
+
+Cleaning up the data is always the first step. Do the following:
+
+Take only observations which have a survived flag (i.e. that aren’t missing)
+Turn your important variables into factors (sex, survived, pclass, embarkation)
+Create an age_status variable which groups individuals under (and including) 16 years of age into a category called “child” category and those over 16 into a category called “adult”.
+Drop the NA
+Drop any variables you don’t need (X1, passenger_id, name, ticket, far, cabin)
+If you need help doing this, the code is below, but please try it yourself first so you can learn!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

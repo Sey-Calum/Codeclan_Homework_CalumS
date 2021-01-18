@@ -1,0 +1,124 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+Logistic regression homework
+
+Calum Sey - CodeClan
+
+Question 1
+You have been provided some customer data from a shopping centre. Do some exploratory analysis on the data. Comment on findings.
+
+```{r}
+library(tidyverse)
+library(here)
+library(janitor)
+library(factoextra)
+library(broom)
+```
+
+```{r}
+customers <- read_csv(here("data/mall_customers.csv")) %>% 
+  clean_names()
+```
+
+```{r}
+head(customers)
+```
+
+```{r}
+summary(customers)
+```
+
+```{r}
+customers %>% 
+  ggplot()+ 
+  aes(x = age,
+      y = spending_score_1_100,
+      colour = gender) + 
+  geom_point()
+```
+
+
+```{r}
+customers %>% 
+  ggplot()+ 
+  aes(x = annual_income_k,
+      y = spending_score_1_100,
+      colour = gender) + 
+  geom_point()
+```
+
+Question 2
+We are interested in creating a marketing campaign to target customers based on their spending score and annual income. Perform a k-means clustering to find if there are meaningful clusters in the data to target the customers.
+```{r}
+scaled <- customers %>% 
+  select(annual_income_k,
+         spending_score_1_100) %>% 
+  mutate_all(scale)
+```
+
+
+```{r}
+fviz_nbclust(scaled,
+             kmeans,
+             method = "wss",
+             nstart = 50)
+```
+
+```{r}
+fviz_nbclust(scaled,
+             kmeans,
+             method = "gap_stat")
+```
+
+
+```{r}
+fviz_nbclust(scaled,
+             kmeans,
+             method = "silhouette",
+             nstart = 50)
+```
+
+Question 3
+Perform k-means clustering and chose a value of k.
+```{r}
+customer_clusters <- kmeans(scaled, centers = 6, nstart = 50)
+customer_clusters
+```
+
+```{r}
+tidy(customer_clusters, 
+     col.names = colnames(scaled))
+```
+
+```{r}
+glance(customer_clusters)
+```
+
+```{r}
+customer_clusters <- augment(customer_clusters, customers)
+```
+
+Question 4
+Visualise the clustering for your chosen value of k.
+```{r}
+library(animation)
+
+customers_scaled %>% 
+  kmeans.ani(centers = 6) 
+```
+
+
+```{r}
+customer_clusters %>% 
+  ggplot() + 
+  aes(x = annual_income_k,
+      y = spending_score_1_100,
+      colour = .cluster) + 
+  geom_point()
+```
+
+Question 5
+Do you think the clustering seems a good fit for this data?
