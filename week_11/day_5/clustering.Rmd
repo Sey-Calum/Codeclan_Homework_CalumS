@@ -89,11 +89,6 @@ customer_clusters
 ```
 
 ```{r}
-tidy(customer_clusters, 
-     col.names = colnames(scaled))
-```
-
-```{r}
 glance(customer_clusters)
 ```
 
@@ -106,7 +101,7 @@ Visualise the clustering for your chosen value of k.
 ```{r}
 library(animation)
 
-customers_scaled %>% 
+scaled %>% 
   kmeans.ani(centers = 6) 
 ```
 
