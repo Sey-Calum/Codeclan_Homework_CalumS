@@ -5,7 +5,7 @@ output: html_notebook
 
 Wed 25th of Nov 2020 - Homework - CIs
 
-Calum Sey - CodeClan
+Calum Sey - CodeClan 
 
 ```{r}
 library(tidyverse)
@@ -15,6 +15,11 @@ library(here)
 ```{r}
 sample <- read_csv(here("data/ames.csv")) %>% 
   clean_names()
+```
+
+
+```{r}
+head(sample)
 ```
 
 ```{r}
